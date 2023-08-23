@@ -33,17 +33,6 @@ public class WaveFunctionCollapse : MonoBehaviour
         }
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.P)) {
-            neighbour.Sort((c1, c2) => c2.GetComponent<CellInfo>().tileOptions.Length.CompareTo(c1.GetComponent<CellInfo>().tileOptions.Length));
-            neighbour[0].GetComponent<CellInfo>().UpdateCell();
-            int x1 = neighbour[0].GetComponent<CellInfo>().x;
-            int y1 = neighbour[0].GetComponent<CellInfo>().y;
-            neighbour.Clear();
-            UpdateNeighboursTileOptions(x1, y1);
-        }   
-    }
-
     private void PickFirstCell(int x, int y) {
         Debug.Log("First Cell : [" + x + "," + y + "]");
         grid[x, y].GetComponent<CellInfo>().UpdateCell();
