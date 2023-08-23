@@ -1,2 +1,7 @@
 # Unity Wave Function Collapse
-Trying to make a wave function collapse in Unity
+
+![Preview](/screenshot.png)
+
+## Description
+
+This Unity project demonstrates the implementation of the Wave Function Collapse (WFC) technique for procedural content generation.
