@@ -71,7 +71,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         if (up >= 0 && up <= (gridY - 1)) {
             if (grid[x, up].TryGetComponent<CellInfo>(out CellInfo cellUp)) {
                 if (!cellUp.isCollapse) {
-                    cellUp.tileOptions = RemoveTileDuplicates(grid[x, y].GetComponent<TileInfo>().upNeighbours, grid[x, up].GetComponent<CellInfo>().tileOptions);
+                    cellUp.tileOptions = RemoveNotAllowedTiles(grid[x, y].GetComponent<TileInfo>().upNeighbours, grid[x, up].GetComponent<CellInfo>().tileOptions);
                     neighbour.Add(cellUp.gameObject);
                 }
             }
@@ -80,7 +80,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         if (right >= 0 && right <= (gridX - 1)) {
             if (grid[right, y].TryGetComponent<CellInfo>(out CellInfo cellRight)) {
                 if (!cellRight.isCollapse) {
-                    cellRight.tileOptions = RemoveTileDuplicates(grid[x, y].GetComponent<TileInfo>().rightNeighbours, grid[right, y].GetComponent<CellInfo>().tileOptions);
+                    cellRight.tileOptions = RemoveNotAllowedTiles(grid[x, y].GetComponent<TileInfo>().rightNeighbours, grid[right, y].GetComponent<CellInfo>().tileOptions);
                     neighbour.Add(cellRight.gameObject);
                 }
             }
@@ -89,7 +89,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         if (down >= 0 && down <= (gridY - 1)) {
             if (grid[x, down].TryGetComponent<CellInfo>(out CellInfo cellDown)) {
                 if (!cellDown.isCollapse) {
-                    cellDown.tileOptions = RemoveTileDuplicates(grid[x, y].GetComponent<TileInfo>().downNeighbours, grid[x, down].GetComponent<CellInfo>().tileOptions);
+                    cellDown.tileOptions = RemoveNotAllowedTiles(grid[x, y].GetComponent<TileInfo>().downNeighbours, grid[x, down].GetComponent<CellInfo>().tileOptions);
                     neighbour.Add(cellDown.gameObject);
                 }
             }
@@ -98,7 +98,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         if (left >= 0 && left <= (gridX - 1)) {
             if (grid[left, y].TryGetComponent<CellInfo>(out CellInfo cellLeft)) {
                 if (!cellLeft.isCollapse) {
-                    cellLeft.tileOptions = RemoveTileDuplicates(grid[x, y].GetComponent<TileInfo>().leftNeighbours, grid[left, y].GetComponent<CellInfo>().tileOptions);
+                    cellLeft.tileOptions = RemoveNotAllowedTiles(grid[x, y].GetComponent<TileInfo>().leftNeighbours, grid[left, y].GetComponent<CellInfo>().tileOptions);
                     neighbour.Add(cellLeft.gameObject);
                 }
             }
@@ -125,7 +125,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         return list;
     }
 
-    private GameObject[] RemoveTileDuplicates(GameObject[] main, GameObject[] neighbourCell) {
+    private GameObject[] RemoveNotAllowedTiles(GameObject[] main, GameObject[] neighbourCell) {
         List<GameObject> lmain = new List<GameObject>(main);
         List<GameObject> lneighbourCell = new List<GameObject>(neighbourCell);
 
