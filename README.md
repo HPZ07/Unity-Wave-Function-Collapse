@@ -1,6 +1,7 @@
 # Unity Wave Function Collapse
 
 ![Preview](/screenshot.png)
+![Preview](/sample.gif)
 
 ## Description
 

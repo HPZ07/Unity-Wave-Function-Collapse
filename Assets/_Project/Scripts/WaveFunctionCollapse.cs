@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class WaveFunctionCollapse : MonoBehaviour
 {
     public int gridX = 50;
     public int gridY = 50;
+    [SerializeField] private float delay = 0.005f;
     public GameObject[,] grid;
     [Space(10)]
     public GameObject cell;
@@ -38,7 +40,7 @@ public class WaveFunctionCollapse : MonoBehaviour
         grid[x, y].GetComponent<CellInfo>().UpdateCell();
     }
 
-    private void CollapseCells(int x, int y) {
+    private void CollapseCells(int x, int y) { 
         UpdateNeighboursTileOptions(x, y);
         while (neighbour.Count > 0) {
             neighbour.Sort((c1, c2) => c1.GetComponent<CellInfo>().tileOptions.Length.CompareTo(c2.GetComponent<CellInfo>().tileOptions.Length));
@@ -51,7 +53,21 @@ public class WaveFunctionCollapse : MonoBehaviour
         FindNewCell();
     }
 
-    private void FindNewCell () {
+    private IEnumerator CollapseCellsWithDelay(int x, int y) { //with delay
+        UpdateNeighboursTileOptions(x, y);
+        while (neighbour.Count > 0) {
+            neighbour.Sort((c1, c2) => c1.GetComponent<CellInfo>().tileOptions.Length.CompareTo(c2.GetComponent<CellInfo>().tileOptions.Length));
+            neighbour[0].GetComponent<CellInfo>().UpdateCell();
+            int x1 = neighbour[0].GetComponent<CellInfo>().x;
+            int y1 = neighbour[0].GetComponent<CellInfo>().y;
+            neighbour.Clear();
+            UpdateNeighboursTileOptions(x1, y1);
+            yield return new WaitForSeconds(delay);
+        }
+        FindNewCell();
+    }
+
+    private void FindNewCell() {
         sortedGrid.Clear();
         sortedGrid = ConvertArrayToList(grid);
         if(sortedGrid.Count > 0) {
@@ -59,6 +75,9 @@ public class WaveFunctionCollapse : MonoBehaviour
             int y = sortedGrid[0].GetComponent<CellInfo>().y;
             grid[x, y].GetComponent<CellInfo>().UpdateCell();
             CollapseCells(x, y);
+        }
+        else {
+            Debug.Log("Generation Completed");
         }
     }
 
