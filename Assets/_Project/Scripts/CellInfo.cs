@@ -6,12 +6,8 @@ public class CellInfo : MonoBehaviour
     public bool isCollapse;
     public GameObject[] tileOptions;
 
-    public GameObject PickRandomTileOption2() {
-        return tileOptions[UnityEngine.Random.Range(0, tileOptions.Length)];
-    }
-
     public GameObject UpdateCell() {
-        GameObject temp = PickRandomTileOption2();
+        GameObject temp = tileOptions[UnityEngine.Random.Range(0, tileOptions.Length)];
         TileInfo tileInfo = temp.GetComponent<TileInfo>();
         this.name = this.name + " " + temp.name;
         this.gameObject.AddComponent<TileInfo>().isCollapsed = true;
