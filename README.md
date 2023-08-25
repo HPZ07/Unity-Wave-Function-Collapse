@@ -1,7 +1,10 @@
 # Unity Wave Function Collapse
 
-![Preview](/screenshot.png)
-![Preview](/sample.gif)
+<div align="center">
+    <img src="/screenshot.png" alt="Preview">
+    <img src="/sample.gif" alt="Preview">
+    <p>With Delay (IEnumerator)</p>
+</div>
 
 ## Description
 
