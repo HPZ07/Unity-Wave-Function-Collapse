@@ -6,6 +6,7 @@ public class WaveFunctionCollapse : MonoBehaviour
 {
     public int gridX = 50;
     public int gridY = 50;
+    [SerializeField] private bool addDelay = false;
     [SerializeField] private float delay = 0.005f;
     public GameObject[,] grid;
     [Space(10)]
@@ -17,12 +18,16 @@ public class WaveFunctionCollapse : MonoBehaviour
     void Start() {
         int x = UnityEngine.Random.Range(0, gridX);
         int y = UnityEngine.Random.Range(0, gridY);
-        InitializeGrid(0.0f);
+        InitializeGrid();
         PickFirstCell(x,y);
-        CollapseCells(x,y);
+        if (!addDelay)
+            CollapseCells(x, y);
+        else
+            StartCoroutine(CollapseCellsWithDelay(x, y));
+
     }
 
-    private void InitializeGrid(float delay) {
+    private void InitializeGrid() {
         grid = new GameObject[gridX, gridY];
         for (int x = 0; x < gridX; x++) {
             for (int y = 0; y < gridY; y++) {
@@ -74,7 +79,10 @@ public class WaveFunctionCollapse : MonoBehaviour
             int x = sortedGrid[0].GetComponent<CellInfo>().x;
             int y = sortedGrid[0].GetComponent<CellInfo>().y;
             grid[x, y].GetComponent<CellInfo>().UpdateCell();
-            CollapseCells(x, y);
+            if (!addDelay)
+                CollapseCells(x, y);
+            else
+                StartCoroutine(CollapseCellsWithDelay(x, y));
         }
         else {
             Debug.Log("Generation Completed");
